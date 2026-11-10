@@ -1,0 +1,43 @@
+# HarmonyOS (OHOS) cross-link configuration for the local DevEco Studio SDK.
+#
+# The OHOS native toolchain ships a clang.exe plus a sysroot. On Windows the
+# `*-unknown-linux-ohos-clang` wrappers are POSIX shell scripts, so rustc must
+# be pointed directly at clang.exe with an explicit --target and -sysroot.
+#
+# Override the SDK location with CADCRAFT_NATIVE_SDK / DEVECO_SDK_HOME if the
+# toolchain lives elsewhere; these paths assume the default Windows install:
+#   C:\Program Files\Huawei\DevEco Studio\sdk\default\openharmony\native
+
+[target.aarch64-unknown-linux-ohos]
+linker = "C:/Program Files/Huawei/DevEco Studio/sdk/default/openharmony/native/llvm/bin/clang.exe"
+rustflags = [
+  "-C", "link-arg=--target=aarch64-linux-ohos",
+  "-C", "link-arg=--sysroot=C:/Program Files/Huawei/DevEco Studio/sdk/default/openharmony/native/sysroot",
+]
+
+[target.x86_64-unknown-linux-ohos]
+linker = "C:/Program Files/Huawei/DevEco Studio/sdk/default/openharmony/native/llvm/bin/clang.exe"
+rustflags = [
+  "-C", "link-arg=--target=x86_64-linux-ohos",
+  "-C", "link-arg=--sysroot=C:/Program Files/Huawei/DevEco Studio/sdk/default/openharmony/native/sysroot",
+]
+
+[build]
+# Keep network off during verification; all deps are vendored / in the registry cache.
+
+# 依赖里带 C/汇编的 crate（`ring`，经 craft-update 的 TLS 链引入）在交叉编译时，
+# 其 build.rs 用 `cc` 找 C 编译器；cc 不认识 OHOS 目标，必须显式指到 SDK 的 clang/llvm-ar。
+# OHOS clang 能直接吃 `aarch64-unknown-linux-ohos` 三元组（实测可达链接阶段）。
+# 注意：`C:\Program Files` 含空格，cc 会把 CFLAGS 按空格拆词，故 sysroot 不能走 CFLAGS；
+# ring 的 C 自带 include 目录，先不加 sysroot。若后续有 C crate 需要系统头，再建无空格符号链接。
+[env]
+# 中文 UI：把 Noto Sans SC（Simplified Chinese, OFL 授权，family 名不在 cadcraft 的
+# BARRED_FAMILIES 里）通过 CRAFT_FONTS_DIR 让 cadcraft-fonts 的 build.rs 用 include_bytes! 内嵌
+# 进 CRAFT_FONTS → can_show("zh") 成立、中文界面可显示、CJK 字形能渲染。
+# 必须是绝对路径（build.rs 用 dir.canonicalize() 且把字体文件约束在该目录内）。
+CRAFT_FONTS_DIR = "C:/Users/mingh/WorkBuddy/2026-11-04-13-19-30/cadcraft-hmos/native/craft-fonts"
+CRAFT_FONTS_REQUIRED = "1"
+CC_aarch64_unknown_linux_ohos = "C:/Program Files/Huawei/DevEco Studio/sdk/default/openharmony/native/llvm/bin/clang.exe"
+AR_aarch64_unknown_linux_ohos = "C:/Program Files/Huawei/DevEco Studio/sdk/default/openharmony/native/llvm/bin/llvm-ar.exe"
+CC_x86_64_unknown_linux_ohos = "C:/Program Files/Huawei/DevEco Studio/sdk/default/openharmony/native/llvm/bin/clang.exe"
+AR_x86_64_unknown_linux_ohos = "C:/Program Files/Huawei/DevEco Studio/sdk/default/openharmony/native/llvm/bin/llvm-ar.exe"

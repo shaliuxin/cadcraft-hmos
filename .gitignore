@@ -1,0 +1,36 @@
+# Rust build artifacts
+native/rust/target/
+**/*.rs.bk
+
+# HarmonyOS build output
+**/build/
+**/.cxx/
+**/.hvigor/
+**/oh_modules/
+**/node_modules/
+*.hap
+*.app
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Local signing material (real cert/key/password kept OUT of the public repo)
+signing/build-profile.local.json5
+signing/
+
+# WorkBuddy tooling-internal data (logs, local memory) — not project source
+.workbuddy/
+
+# Upstream source backups / tarballs (not part of the project source tree)
+_upgrade/
+v0*/
+*.tar.gz
+
+# Verification screenshots (device captures, not source)
+_*.jpeg
+_*.png
+_*.jpg
+_*.bmp
+verify-*.jpeg

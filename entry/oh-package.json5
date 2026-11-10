@@ -1,0 +1,11 @@
+{
+  "name": "entry",
+  "version": "0.19.0",
+  "description": "CADCraft entry module",
+  "main": "",
+  "author": "",
+  "license": "MIT OR Apache-2.0",
+  "dependencies": {
+    "libcadcraft.so": "file:./src/main/cpp/types/libcadcraft"
+  }
+}

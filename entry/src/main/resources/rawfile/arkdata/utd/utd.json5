@@ -1,0 +1,20 @@
+{
+  "UniformDataTypeDeclarations": [
+    {
+      "TypeId": "io.github.shaliuxin.cadcraft.hmos.drawing",
+      "BelongingToTypes": [
+        "general.file"
+      ],
+      "FilenameExtensions": [
+        ".dxf",
+        ".dwg"
+      ],
+      "MIMETypes": [
+        "application/dxf",
+        "application/acad"
+      ],
+      "Description": "CADCraft drawing",
+      "ReferenceURL": ""
+    }
+  ]
+}
