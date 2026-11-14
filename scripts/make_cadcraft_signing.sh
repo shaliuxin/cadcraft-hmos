@@ -96,7 +96,7 @@ APP_B64=$(python -c "import base64;print(base64.urlsafe_b64encode(open('app-leaf
 cat > app-profile.json <<EOF
 {
   "version-name": "2.0.0",
-  "version-code": 1900,
+  "version-code": 2001,
   "uuid": "6c1a0e2b-4f3d-4b7a-9c2e-cadcraft01",
   "validity": { "not-before": $NB, "not-after": $NA },
   "type": "debug",

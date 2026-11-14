@@ -15,7 +15,7 @@ CADCraft 是 [@ceremcem](https://github.com/ceremcem) 的 CAD 应用，基于 Ru
 ```
 cadcraft-hmos/
 ├── cadcraft/          # 上游 cadcraft 源码（fork 形式 vendored 在内，使仓库自包含、clone 即可编译）
-├── vendor/            # vendored egui / winit / craft-libs forks（经 [patch.crates-io] 指向本地）
+├── vendor/            # egui / winit / craft-libs 的精确提交副本（与 Cargo.toml 中固定的 git rev 一致；离线参考/兜底用）
 ├── third_party/       # wgpu-hal 等补丁
 ├── native/rust/       # Rust NAPI/FFI 适配层（lib.rs / input.rs / render.rs / bridge.rs / Cargo.toml）
 ├── entry/             # ArkTS UIAbility（XComponent、IME、文件选择）

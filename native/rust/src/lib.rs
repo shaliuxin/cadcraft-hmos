@@ -698,6 +698,8 @@ fn services() -> cadcraft_ui_egui::Services {
     cadcraft_ui_egui::Services {
         pick_open: Some(Box::new(|| file_pick("open", ""))),
         pick_save: Some(Box::new(|name| file_pick("save", name))),
+        // 0.20.x 新增：macOS 原生面板选择器（OHOS 无此需求，置 None）。
+        start_pick: None,
         pick_lisp: Some(Box::new(|name| file_pick("lisp", name))),
         // 0.19.0 新增：选 `.pgp` 别名文件（起始文件夹为 Option<&str>，空串即默认）。
         pick_pgp: Some(Box::new(|folder: Option<&str>| file_pick("pgp", folder.unwrap_or("")))),
