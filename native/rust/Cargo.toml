@@ -57,4 +57,21 @@ hayro-syntax = { path = "../../vendor/craft-libs/vendor/hayro-syntax" }
 hayro-jbig2 = { path = "../../vendor/craft-libs/vendor/hayro-jbig2" }
 wgpu-hal = { path = "../../third_party/wgpu-hal-30.0.1" }
 
+# craft-libs 在 cadcraft 上游以 git 声明（rev 92d392c…；craft-update 例外 6e03f65…），
+# 跨 workspace 后 [patch.crates-io] 覆盖不到 git 源，必须按 git URL 单独建表，
+# 才能把这些 crate 重定向到本地 vendor/ 并真正离线自包含。
+# 说明：本适配层 workspace 里 craft-libs 各 crate 若以 git 源进入依赖图，由本表重定向；
+# 若以 crates.io 源进入，则被上方 [patch.crates-io] 重定向（本表对应项仅 benign 告警
+# was not used，互不冲突——cargo 允许同一 crate 名同时出现在两表，已实跑验证）。
+# 这里把 craft-libs 全部 crate 都列上，确保无论哪个以 git 进入都能被重定向到本地 vendor。
+[patch."https://github.com/storytold/craft-libs"]
+craft-ui = { path = "../../vendor/craft-libs/crates/ui" }
+craft-window = { path = "../../vendor/craft-libs/crates/window" }
+craft-pdf = { path = "../../vendor/craft-libs/crates/pdf" }
+craft-update = { path = "../../vendor/craft-libs/crates/update" }
+craft-docpath = { path = "../../vendor/craft-libs/crates/docpath" }
+krilla = { path = "../../vendor/craft-libs/vendor/krilla" }
+hayro-syntax = { path = "../../vendor/craft-libs/vendor/hayro-syntax" }
+hayro-jbig2 = { path = "../../vendor/craft-libs/vendor/hayro-jbig2" }
+
 [workspace]
